@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.3
-    working_directory: https://git.heroku.com/ordo-ui.git
+    working_directory:
     steps:
       - checkout
       # install dependencies
