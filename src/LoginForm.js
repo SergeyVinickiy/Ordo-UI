@@ -21,7 +21,7 @@ class LoginForm extends React.Component{
     if(val.length > 12){
       return;
     }
-    this.state({
+    this.setState({
       [property]: val
     })
   }
@@ -51,17 +51,20 @@ class LoginForm extends React.Component{
       })
 
       try{
+        var requestBody = {
+          username: this.state.userName,
+          password: this.state.password
+        };
+        var requestBodyJson = JSON.stringify(requestBody, null, null);
 
-          let res = await fetch('/login', {
+          let res = await fetch('https://ordo-be.herokuapp.com/api/v1/auth/login', {
             method: 'post',
             headers: {
-              'Accept' : 'application.json',
-              'Content-Type' : 'application.json'
+              'Accept' : 'application/json',
+              'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({
-              userName: this.state.userName,
-              password: this.state.password
-            })
+     
+             body: requestBodyJson
           });
 
           let result = await res.json();
