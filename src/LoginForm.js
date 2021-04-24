@@ -50,19 +50,18 @@ class LoginForm extends React.Component{
       })
 
       try{
-        var requestBody = {
-          username: this.state.userName,
-          password: this.state.password
-        };
         var requestBodyJson = JSON.stringify(requestBody);
-          let res = await fetch('http://ordo-be.herokuapp.com/api/v1/auth/login', {
+          let res = await fetch('https://ordo-be.herokuapp.com/api/v1/auth/login', {
             method: 'POST',
             headers: {
               'Accept' : 'application/json',
               'Content-Type' : 'application/json'
             },
      
-             body: requestBodyJson
+             body:  {
+              username: this.state.userName,
+              password: this.state.password
+            }
           });
 
           let result = await res.json();
