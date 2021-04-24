@@ -2,7 +2,7 @@ import React        from 'react';
 import InputField   from './InputField';
 import SubmitButton from './SubmitButton';
 import UserStore    from './stores/UserStore';
-import FormData from 'FormData';
+import axios        from 'axios';
 
 class LoginForm extends React.Component{
 
@@ -48,21 +48,21 @@ class LoginForm extends React.Component{
       this.setState({
         buttonDisabled : true
       })
-      var data = new FormData();
-      data.append("username", this.state.userName);
-      data.append("password", this.state.password);
       try{
-          let res = await fetch('https://ordo-be.herokuapp.com/api/v1/auth/login', {
-            method: 'POST',
-            headers: {
-              'Accept' : 'application/json',
-              'Content-Type' : 'application/json'
-            },
+        const response = await axios.post(
+          'http://ordo-be.herokuapp.com/api/v1/auth/login',
+          JSON.stringify({
+            username: this.state.userName,
+            password: this.state.password
+          }),
+          { headers: { 'Content-Type': 'application/json',
+          'Accept' : 'application/json'
+        }
+       }
+        )
+        console.log(response.data)
 
-             body: data
-          });
-
-          let result = await res.json();
+          let result = await response.json();
           if(result && result.success){
             UserStore.isLoggedIn = true;
             UserStore.userName = result.userName;
