@@ -2,6 +2,7 @@ import React        from 'react';
 import InputField   from './InputField';
 import SubmitButton from './SubmitButton';
 import UserStore    from './stores/UserStore';
+import FormData from 'FormData';
 
 class LoginForm extends React.Component{
 
@@ -47,7 +48,9 @@ class LoginForm extends React.Component{
       this.setState({
         buttonDisabled : true
       })
-
+      var data = new FormData();
+      data.append("username", this.state.userName);
+      data.append("password", this.state.password);
       try{
           let res = await fetch('https://ordo-be.herokuapp.com/api/v1/auth/login', {
             method: 'POST',
@@ -55,11 +58,8 @@ class LoginForm extends React.Component{
               'Accept' : 'application/json',
               'Content-Type' : 'application/json'
             },
-     
-             body: JSON.stringify({
-              username: this.state.userName,
-              password: this.state.password
-            })
+
+             body: data
           });
 
           let result = await res.json();
