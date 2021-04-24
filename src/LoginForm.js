@@ -12,7 +12,6 @@ class LoginForm extends React.Component{
       password: '',
       buttonDisabled: false
     }
-
   }
 
   setInputValue(property, val){
@@ -50,7 +49,6 @@ class LoginForm extends React.Component{
       })
 
       try{
-        var requestBodyJson = JSON.stringify(requestBody);
           let res = await fetch('https://ordo-be.herokuapp.com/api/v1/auth/login', {
             method: 'POST',
             headers: {
@@ -58,10 +56,10 @@ class LoginForm extends React.Component{
               'Content-Type' : 'application/json'
             },
      
-             body:  {
+             body: JSON.stringify({
               username: this.state.userName,
               password: this.state.password
-            }
+            })
           });
 
           let result = await res.json();
