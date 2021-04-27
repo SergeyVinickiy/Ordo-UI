@@ -3,7 +3,10 @@ import {observer } from 'mobx-react';
 import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
 import SubmitButton from './SubmitButton';
+import Button from './components/Button';
+import WeekTable from './components/WeekTable';
 import './App.css';
+import ShiftOptions from './components/ShiftOptions';
 
 
 class App extends React.Component{
@@ -71,7 +74,7 @@ async doLogout(){
 
 
   render(){
-
+    const onClick = () => { console.log('Shifts was send to server and saved in db :))')}
       if(UserStore.loading){
         return(
           <div className="app">
@@ -87,8 +90,14 @@ async doLogout(){
           return(
             <div className="app">
                <div className = 'container'>
-                Welcome. You are loged id
+                Welcome { UserStore.userName}. You are loged in
 
+
+                <WeekTable />
+                <Button
+                  text = 'Send'
+                  onClick = {onClick}
+                  />
                 <SubmitButton
                 
                   text = {'Log out'}

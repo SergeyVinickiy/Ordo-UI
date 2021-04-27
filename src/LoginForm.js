@@ -49,28 +49,26 @@ class LoginForm extends React.Component{
         buttonDisabled : true
       })
       try{ 
-        const response = await axios.post(
+        let response = await axios.post(
           'https://ordo-be.herokuapp.com/api/v1/auth/login',
           {
             username: this.state.userName,
             password: this.state.password
           },
          { headers: { 'Content-Type': 'application/json',
-          'Accept' : 'application/json'
+          'Accept' : 'application/json',
         }
        
       })
-        console.log(response.data)
 
-          let result = await response.json();
-          if(result && result.success){
+          if(response.status === 200){
             UserStore.isLoggedIn = true;
-            UserStore.userName = result.userName;
+            UserStore.userName = response.data.username;
           }
-          else if(result && result.success === false){
+          else if(response !== 200){
 
             this.resetForm();
-            alert(result.msg);
+            alert(response.msg);
             
           }
 
