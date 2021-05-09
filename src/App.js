@@ -2,11 +2,12 @@ import React from 'react';
 import {observer } from 'mobx-react';
 import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
-import SubmitButton from './SubmitButton';
-import Button from './components/Button';
-import WeekTable from './components/WeekTable';
+import WeekTable from './sendShifts/WeekTable';
 import './App.css';
-import ShiftOptions from './components/ShiftOptions';
+import Navigation from './Navigation';
+import Profile from './profile/Profile';
+import Home from './home/Home'
+import {BrowserRouter as Router, Switch, Route}from  'react-router-dom';
 
 
 class App extends React.Component{
@@ -73,8 +74,8 @@ async doLogout(){
 }
 
 
+
   render(){
-    const onClick = () => { console.log('Shifts was send to server and saved in db :))')}
       if(UserStore.loading){
         return(
           <div className="app">
@@ -84,28 +85,20 @@ async doLogout(){
           </div>
         );
       }
+
       else{
         if(UserStore.isLoggedIn){
-
           return(
-            <div className="app">
-               <div className = 'container'>
-                Welcome { UserStore.userName}. You are loged in
+            <div>
+              <Router>
+                <Navigation />
+                  <Switch>  
+                    <Route path = "/" exact component = {Home}/>
+                    <Route path = "/profile" component = {Profile}/>
+                    <Route path = "/options" component = {WeekTable}     />
+                    </Switch>
+                  </Router>
 
-
-                <WeekTable />
-                <Button
-                  text = 'Send'
-                  onClick = {onClick}
-                  />
-                <SubmitButton
-                
-                  text = {'Log out'}
-                  disable={false}
-                  onClick={ () => this.doLogout()}
-                
-                />
-               </div> 
             </div>
           );
 
@@ -113,17 +106,11 @@ async doLogout(){
         return (
           <div className="app">
                <div className = 'container'>
-               
-               <LoginForm
-               
-               />
-
-
+                  <LoginForm/>
                </div>
           </div>
-        );
-
-        }
+      );
+    }
   }
 }
 

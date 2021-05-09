@@ -1,6 +1,6 @@
 import React        from 'react';
 import InputField   from './InputField';
-import SubmitButton from './SubmitButton';
+import SubmitButton from './general/SubmitButton';
 import UserStore    from './stores/UserStore';
 import axios        from 'axios';
 
@@ -44,13 +44,12 @@ class LoginForm extends React.Component{
       if(!this.state.password){
         return;
       }
-
       this.setState({
         buttonDisabled : true
       })
       try{ 
         let response = await axios.post(
-          'https://ordo-be.herokuapp.com/api/v1/auth/login',
+          'https://ordo-ui.herokuapp.com/api/v1/auth/login',
           {
             username: this.state.userName,
             password: this.state.password
@@ -69,10 +68,8 @@ class LoginForm extends React.Component{
 
             this.resetForm();
             alert(response.msg);
-            
+          
           }
-
-
       }
       catch(e){
         console.log(e);
@@ -92,7 +89,6 @@ class LoginForm extends React.Component{
           placeholder = 'User name'
           value = {this.state.userName ? this.state.userName : ''}
           onChange = { (val) => this.setInputValue('userName', val)}
-
         />
 
         <InputField 
@@ -100,7 +96,6 @@ class LoginForm extends React.Component{
           placeholder = 'Password'
           value = {this.state.password ? this.state.password : ''}
           onChange = { (val) => this.setInputValue('password', val)}
-
         />
 
 
@@ -108,10 +103,7 @@ class LoginForm extends React.Component{
           text = 'Log In'
           disabled = {this.state.buttonDisabled}
           onClick = { () => this.doLogin()}
-
-
         />
-
 
       </div>
     );

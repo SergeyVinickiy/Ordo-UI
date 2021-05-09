@@ -13,9 +13,6 @@ class InputField extends React.Component{
 
           />
 
-        
-      
-
       </div>
     );
   }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '../general/Button';
 
 const WeekTable = () => {
     const [week, setWeek] = useState([
@@ -35,8 +36,11 @@ const WeekTable = () => {
             'day':'Saturday'
         }
     ])
-    
+
+    const onClick = () => { console.log('Shifts was send to server and saved in db :))')}  
+     
     return (
+
         <tbody>
         <tr>
           {week.map((dayOfTheWeek) => (<td 
@@ -77,9 +81,18 @@ const WeekTable = () => {
           ))}
 
         </tr>
+        
+        <Button
+                  text = 'Send'
+                  onClick = {onClick}
+        /> 
+        
+        
         </tbody>
+      
 
-    )
+
+  )
 }
 
 export default WeekTable

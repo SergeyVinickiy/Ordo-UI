@@ -71,3 +71,25 @@ body, html, #root, .app, .container {
  cursor: pointer;
 }
 
+
+nav{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background-color: rgb(87, 121, 151);
+  color: white;
+}
+
+.nav-links{
+width: 50%;
+display: flex;
+justify-content: space-around;
+align-items: center;
+list-style: none;
+}
+
+
+.navStyle{
+  color: white;
+}
